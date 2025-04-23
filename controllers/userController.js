@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 const createToken = (id) => {
-  return jwt.sign({ id },);
+  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 // Route for User Login
@@ -41,7 +41,15 @@ const registerUser = async (req, res) => {
     });
 
     const user = await newUser.save();
-  } catch (e) {}
+
+    const token = createToken(user._id);
+
+    res.json({ success: true, token});
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 // Route for Admin Login
