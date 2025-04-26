@@ -1,3 +1,5 @@
+import { v2 as cloudinary } from "cloudinary";
+
 // function for Add product
 const addProduct = async (req, res) => {
   try {
@@ -11,17 +13,22 @@ const addProduct = async (req, res) => {
     const image4 = req.files.image4 && req.files.image4[0];
 
     const images = [image1, image2, image3, image4].filter((item) => item !== undefined);
-    // console.log(name, "\n", description, "\n", price, "\n", category, "\n", subCategory, "\n", sizes, "\n", bestseller);
+    // Cloudinary
+    let imagesUrl = await Promise.all(
+      images.map(async (item) => {
+        let result = await cloudinary.uploader.upload(item.path, { resource_type: "image" });
+        return result.secure_url;
+      })
+    );
+
     console.log("Images = ", images);
-
-
+    console.log("Images URL = ", imagesUrl);
     res.json({});
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
 };
-
 
 // function for List product
 const listProduct = async (req, res) => {};
