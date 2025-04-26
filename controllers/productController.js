@@ -40,7 +40,6 @@ const addProduct = async (req, res) => {
     await product.save();
 
     res.json({ success: true, message: "Product Added" });
-
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -48,7 +47,16 @@ const addProduct = async (req, res) => {
 };
 
 // function for List product
-const listProduct = async (req, res) => {};
+const listProduct = async (req, res) => {
+  try {
+    // Finding from DataBase
+    const products = await productModel.find({});
+    res.json({ success: true, products });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // function for Remove product
 const removeProduct = async (req, res) => {};
