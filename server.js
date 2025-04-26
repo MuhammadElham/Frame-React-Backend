@@ -15,6 +15,8 @@ connectCloudinary();
 // MiddleWare
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true })); // <-- Yeh add karo!! IMPORTANT
+app.use('/uploads', express.static('uploads'));
 
 // API endpoints
 app.use("/api/user", userRouter);
