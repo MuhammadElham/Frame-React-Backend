@@ -56,7 +56,19 @@ const userOrders = async (req, res) => {
 };
 
 // Update Order Status from Admin Panel
-const updateStatus = async (req, res) => {};
+const updateStatus = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+
+    await orderModel.findByIdAndUpdate(orderId, { status });
+    res.json({ success: true, message: "Status Updated" });
+
+  } catch (error) {
+    
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // Placing order using JazzCash Method
 const placeOrderJazzcash = async (req, res) => {};
