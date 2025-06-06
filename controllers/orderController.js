@@ -27,10 +27,10 @@ const placeOrder = async (req, res) => {
   }
 };
 // Placing order using Stripe Method
-// const placeOrderStripe = async (req, res) => {};
+const placeOrderStripe = async (req, res) => {};
 
 // Placing order using RazorPay Method
-// const placeOrderRazorpay = async (req, res) => {};
+const placeOrderRazorpay = async (req, res) => {};
 
 // All Orders data for Admin Panel
 const allOrders = async (req, res) => {
@@ -62,7 +62,6 @@ const updateStatus = async (req, res) => {
 
     await orderModel.findByIdAndUpdate(orderId, { status });
     res.json({ success: true, message: "Status Updated" });
-
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
@@ -70,6 +69,6 @@ const updateStatus = async (req, res) => {
 };
 
 // Placing order using JazzCash Method
-// const placeOrderJazzcash = async (req, res) => {};
+const placeOrderJazzcash = async (req, res) => {};
 
-export { placeOrder, allOrders, userOrders, updateStatus };
+export { placeOrder, allOrders, userOrders, updateStatus, placeOrderStripe, placeOrderRazorpay, placeOrderJazzcash };
